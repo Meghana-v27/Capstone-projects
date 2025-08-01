@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+   <center>
+    <h1>Book Tracker</h1><hr>
+
+    <form action="/add-book" method="post">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="author" placeholder="Author">
+        <input type="date" name="publication_date" placeholder="Publication Date">
+        <button type="submit">Add Book</button>
+    </form>
+
+    <% books.forEach(book => { %>
+        <div>
+            <h2><%= book.title %></h2>
+            <p>Author: <%= book.author %></p>
+            <p>Publication Date: <%= book.publication_date %></p>
+
+            <form action="/add-review" method="post">
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+                <input type="number" name="rating" placeholder="Rating" required>
+                <input type="date" name="read_date" placeholder="Read Date">
+                <button type="submit">Add Review</button>
+            </form>
+
+            <form action="/delete-book/<%= book.id %>" method="post" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                <button type="submit">Delete Book</button>
+            </form>
+        </div>
+    <% }); %>
+    </center>
+</body>
+</html>
