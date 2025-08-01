@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <center><h1>My Simple Blogs</h1></center>
+        <nav text-align="center">
+            <ul>
+                <li><a href="/" style="display: inline-block;">Home</a></li>
+                <li><a href="/compose" style="display: inline-block;">Compose</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+            <p class="error-message"><%= errorMessage %></p>
+        <% } %>
+
+        <% if (posts.length === 0) { %>
+            <p>No posts yet. <a href="/compose">Write your first post!</a></p>
+        <% } else { %>
+            <div class="post-list">
+                <% posts.forEach(function(post){ %>
+                    <div class="post-preview">
+                        <h2><a href="/posts/<%= post.title.toLowerCase().replace(/ /g, '-') %>"><%= post.title %></a></h2>
+                        <p><%= post.content.substring(0, 100) %>...</p>
+                        <a href="/posts/<%= post.title.toLowerCase().replace(/ /g, '-') %>" class="read-more">Read More</a>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </main>
+<div text-align="center">
+    <footer>
+        <p>&copy; <%= new Date().getFullYear() %> My Simple Blog</p>
+    </footer>
+</div>
+</body>
+</html>
